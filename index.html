@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;,">
+   
+   <link rel="stylesheet" href="./css/style.css" />
+   <link rel="stylesheet" href="./css/select.css" />
+   <link rel="stylesheet" href="./css/dialog.css" />
+
+   <script type=module src="./js/main.js"></script>
+
+   <title>Todo</title>
+</head>
+
+<body>
+   <section class="todo">
+      <div class="custom-dropdown">
+         <select id="topicselect">
+            <option value="" disabled selected hidden>Select A Todo Topic</option>
+         </select>
+         <a id="closebtn" href="javascript:window.open('','_self').close();"> X </a>
+      </div>
+      <div class="input">
+         <input type="text" id="taskInput" class="input-field" placeholder="Add a new task" />
+      </div>
+      <ul class="scroll">
+         <li id="todoList"></li>
+      </ul>
+      <div>
+         <hr class="counter" />
+         <div class="counter-container">
+            <p><span id="todoCount">0</span> Items</p>
+            <button id="backupbtn">Backup</button>
+            <button id="restorebtn">Restore</button>
+            <input id="filesave" class="file" type="file" name="filesave">
+            <input id="fileload" class="file" type="file" name="fileload">
+            <button id="deletecompleted">Remove Completed</button>
+         </div>
+      </div>
+      <dialog id="popupDialog">
+         <p id="popup_text">Yup!</p>
+         <p>Press any key to continue.</p>
+      </dialog>
+      <dialog id="myDialog">
+         <label for="pin">Enter PIN</label>
+         <input id="pin" type="password" />
+      </dialog>
+   </section>
+</body>
+
+</html>
