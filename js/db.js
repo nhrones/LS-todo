@@ -4,10 +4,15 @@ import { refreshDisplay, setTasks, tasks } from './tasks.js';
 import { currentTopic, popupText, popupDialog } from './dom.js';
 import { initCache, getFromCache, setCache } from './dbCache.js';
 import { restoreData } from './backup.js'
+
 /** 
  * db module
  * @module DBModule - the db module
  * @description - The db module (db.js) is responsible for communicating with the persistance layer.
+ */
+
+/**
+ * @typedef {import('./types.js').TodoItem} TodoItem
  */
 
 /**@type {string}*/
@@ -67,6 +72,8 @@ export function buildTopics() {
  */
 // deno-lint-ignore no-explicit-any
 function parseTopics(topics) {
+   
+   /** @type {{ group: string; entries: {title: string, key: string} []; }} */
    const topicObject = { group: "", entries: [] };
    const thisTopic = topics;
    const txt = thisTopic.text;
@@ -80,7 +87,7 @@ function parseTopics(topics) {
       const keyName = items[1].trim();
       newObj.title = title;
       newObj.key = keyName;
-      // @ts-ignore
+      
       topicObject.entries[i - 1] = newObj;
    }
    return topicObject;
@@ -95,15 +102,14 @@ export function saveTasks(topicChanged) {
    setCache(thisKeyName, tasks, topicChanged);
 }
 
-/**@typedef {{disabled: boolean, text: string}} Task*/
 /**
  * Delete completed tasks
  */
 export function deleteCompleted() {
-   /** @type {Task[]} */
+   /** @type {TodoItem[]} */
    const savedtasks = [];
    let numberDeleted = 0;
-   tasks.forEach((/**@type {Task} */ task) => {
+   tasks.forEach((/**@type {TodoItem} */ task) => {
       if (task.disabled === false) {
          savedtasks.push(task);
       } else {
@@ -114,6 +120,6 @@ export function deleteCompleted() {
    saveTasks((currentTopic === 'topics'));
 
    popupText.textContent = `Removed ${numberDeleted} tasks!`;
-   // @ts-ignore
+ 
    popupDialog.showModal();
 }
